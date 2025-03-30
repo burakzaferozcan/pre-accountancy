@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const express = require("express");
+const Customer = require("./routes/CustomerRoutes");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -23,9 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", (req, res) => {
-  res.json({ message: "API'a hoşgeldiniz" });
-});
+app.use("/api/customer", Customer.customerRoutes);
 
 app.listen(PORT, () => {
   console.log(`Sunucu ${PORT} portunda çalışıyor`);
