@@ -48,9 +48,36 @@ const getByIdSP = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const updateByIdSP = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let { description, price } = req.body;
+
+    const sId = sanityFunction(id);
+    const sDescription = sanityFunction(description);
+    const sPrice = sanityFunction(price);
+    if ((!sId, !sDescription || !sPrice)) {
+      res.send({
+        success: false,
+        message: "Lütfen geçerli veriler ile tekrar deneyin.",
+      });
+    }
+    const connection = await getConnection();
+    const sqlQuery = "CALL updateStockByIdSP (?,?,?)";
+    const response = await connection.query(sqlQuery, [
+      sId,
+      sDescription,
+      sPrice,
+    ]);
+    res.send(response[0][0].result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 module.exports = {
   getAllSP,
   addDataSP,
   getByIdSP,
+  updateByIdSP,
 };
