@@ -5,14 +5,14 @@ const {
   deleteProductPurchaseSP,
   addPaymentSP,
   deletePaymentSP,
-  getAllProductPurchaseSP,
-  getAllPaymentSP,
+  getAllProductPurchaseByIdSP,
+  getAllPaymentByIdSP,
 } = require("../controllers/ProductPurchaseController");
 
 router.post("/purchase", addProductPurchaseSP);
-router.get("/purchase", getAllProductPurchaseSP);
+router.get("/purchase/:id", getAllProductPurchaseByIdSP);
 router.post("/payment", addPaymentSP);
-router.get("/payment", getAllPaymentSP);
+router.get("/payment/:id", getAllPaymentByIdSP);
 router.delete("/purchase/:id", deleteProductPurchaseSP);
 router.delete("/payment/:id", deletePaymentSP);
 
