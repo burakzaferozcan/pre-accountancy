@@ -10,7 +10,27 @@ const getAllSP = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const addDataSP = async (req, res) => {
+  try {
+    let { description, price } = req.body;
+    const sDescription = sanityFunction(description);
+    const sPrice = sanityFunction(price);
+    if (!sDescription || !sPrice) {
+      res.send({
+        success: false,
+        message: "Lütfen geçerli veriler ile tekrar deneyin.",
+      });
+    }
+    const connection = await getConnection();
+    const sqlQuery = "CALL addStockSP (?,?)";
+    const response = await connection.query(sqlQuery, [sDescription, sPrice]);
+    res.send(response[0][0].result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 module.exports = {
   getAllSP,
+  addDataSP,
 };
