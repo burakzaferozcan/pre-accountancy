@@ -5,6 +5,7 @@ const express = require("express");
 const Customer = require("./routes/CustomerRoutes");
 const Service = require("./routes/ServiceRoutes");
 const Stock = require("./routes/StockRoutes");
+const ProductPurchase = require("./routes/ProductPurchaseRoutes");
 
 const PORT = process.env.PORT || 5000;
 
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 app.use("/api/customer", Customer.customerRoutes);
 app.use("/api/service", Service.serviceRoutes);
 app.use("/api/stock", Stock.stockRoutes);
+app.use("/api/product-purchase", ProductPurchase.productPurchaseRoutes);
 
 app.listen(PORT, () => {
   console.log(`Sunucu ${PORT} portunda çalışıyor`);
