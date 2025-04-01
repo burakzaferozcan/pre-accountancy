@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const {
   addProductPurchaseSP,
-  deleteProductPurchaseSP,
+  deleteProductPurchaseByIdSP,
   addPaymentSP,
-  deletePaymentSP,
+  deletePaymentByIdSP,
   getAllProductPurchaseByIdSP,
   getAllPaymentByIdSP,
 } = require("../controllers/ProductPurchaseController");
@@ -13,7 +13,7 @@ router.post("/purchase", addProductPurchaseSP);
 router.get("/purchase/:id", getAllProductPurchaseByIdSP);
 router.post("/payment", addPaymentSP);
 router.get("/payment/:id", getAllPaymentByIdSP);
-router.delete("/purchase/:id", deleteProductPurchaseSP);
-router.delete("/payment/:id", deletePaymentSP);
+router.delete("/purchase/:id", deleteProductPurchaseByIdSP);
+router.delete("/payment/:id", deletePaymentByIdSP);
 
 module.exports = { productPurchaseRoutes: router };
