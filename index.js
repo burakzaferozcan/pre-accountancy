@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const express = require("express");
+const Auth = require("./routes/AuthRoutes");
 const Customer = require("./routes/CustomerRoutes");
 const Service = require("./routes/ServiceRoutes");
 const Stock = require("./routes/StockRoutes");
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/auth", Auth.authRoutes);
 app.use("/api/customer", Customer.customerRoutes);
 app.use("/api/service", Service.serviceRoutes);
 app.use("/api/stock", Stock.stockRoutes);
