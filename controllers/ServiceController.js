@@ -49,7 +49,7 @@ const getByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL getServiceByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
@@ -97,7 +97,7 @@ const deleteByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL deleteServiceByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuer, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
