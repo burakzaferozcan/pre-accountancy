@@ -48,7 +48,33 @@ const deleteSalesByIdSP = async (req, res) => {
   }
 };
 
+const addCollectionsSP = async (req, res) => {
+  try {
+    let { customerID, description, total } = req.body;
+    const sCustomerID = sanityFunction(customerID);
+    const sDescription = sanityFunction(description);
+    const sTotal = sanityFunction(total);
+    if (!sCustomerID || !sDescription || !sTotal) {
+      res.send({
+        success: false,
+        message: "Lütfen geçerli veriler ile tekrar deneyin.",
+      });
+    }
+    const connection = await getConnection();
+    const sqlQuery = "CALL addCollectionsSP (?,?,?)";
+    const response = await connection.query(sqlQuery, [
+      sCustomerID,
+      sDescription,
+      sTotal,
+    ]);
+    res.send(response[0][0].result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 module.exports = {
   addSalesSP,
   deleteSalesByIdSP,
+  addCollectionsSP,
 };
