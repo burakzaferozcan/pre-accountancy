@@ -41,7 +41,7 @@ const deleteSalesByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL deleteSalesByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
@@ -85,7 +85,7 @@ const deleteCollectionsByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL deleteCollectionsByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
@@ -104,7 +104,7 @@ const getAllSalesByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL getAllSalesByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
@@ -123,7 +123,7 @@ const getAllCollectionsByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL getAllCollectionsByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
