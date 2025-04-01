@@ -7,6 +7,7 @@ const Service = require("./routes/ServiceRoutes");
 const Stock = require("./routes/StockRoutes");
 const ProductPurchase = require("./routes/ProductPurchaseRoutes");
 const Sales = require("./routes/SalesRoutes");
+const Constant = require("./routes/ConstantRoutes");
 
 const PORT = process.env.PORT || 5000;
 
@@ -34,6 +35,7 @@ app.use("/api/service", Service.serviceRoutes);
 app.use("/api/stock", Stock.stockRoutes);
 app.use("/api/product-purchase", ProductPurchase.productPurchaseRoutes);
 app.use("/api/sales", Sales.salesRoutes);
+app.use("/api/constant", Constant.constantRoutes);
 
 app.listen(PORT, () => {
   console.log(`Sunucu ${PORT} portunda çalışıyor`);
