@@ -29,7 +29,7 @@ const addProductPurchaseSP = async (req, res) => {
   }
 };
 
-const deleteProductPurchaseSP = async (req, res) => {
+const deleteProductPurchaseByIdSP = async (req, res) => {
   try {
     let id = req.params.id;
     const sId = sanityFunction(id);
@@ -73,7 +73,7 @@ const addPaymentSP = async (req, res) => {
   }
 };
 
-const deletePaymentSP = async (req, res) => {
+const deletePaymentByIdSP = async (req, res) => {
   try {
     let id = req.params.id;
     const sId = sanityFunction(id);
@@ -132,9 +132,9 @@ const getAllPaymentByIdSP = async (req, res) => {
 
 module.exports = {
   addProductPurchaseSP,
-  deleteProductPurchaseSP,
+  deleteProductPurchaseByIdSP,
   addPaymentSP,
-  deletePaymentSP,
+  deletePaymentByIdSP,
   getAllProductPurchaseByIdSP,
   getAllPaymentByIdSP,
 };
