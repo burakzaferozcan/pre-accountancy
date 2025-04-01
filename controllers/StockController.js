@@ -1,5 +1,6 @@
 const { getConnection } = require("../config/dbConfig");
 const { sanityFunction } = require("../utils/sanityFunction");
+
 const getAllSP = async (req, res) => {
   try {
     const connection = await getConnection();
@@ -10,6 +11,7 @@ const getAllSP = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
 const addDataSP = async (req, res) => {
   try {
     let { description, price } = req.body;
@@ -42,12 +44,13 @@ const getByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL getStockByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
+
 const updateByIdSP = async (req, res) => {
   try {
     let id = req.params.id;
@@ -74,6 +77,7 @@ const updateByIdSP = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
 const deleteByIdSP = async (req, res) => {
   try {
     let id = req.params.id;
@@ -86,7 +90,7 @@ const deleteByIdSP = async (req, res) => {
     }
     const connection = await getConnection();
     const sqlQuery = "CALL deleteStockByIdSP (?)";
-    const response = await connection.query(sqlQuery);
+    const response = await connection.query(sqlQuery, [sId]);
     res.send(response[0][0].result);
   } catch (error) {
     res.status(500).send(error.message);
