@@ -51,6 +51,18 @@ const addUpdateConstantSP = async (req, res) => {
   }
 };
 
+const getConstantSP = async (req, res) => {
+  try {
+    const connection = await getConnection();
+    const sqlQuery = "CALL getConstantSP ()";
+    const response = await connection.query(sqlQuery);
+    res.send(response[0][0].result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 module.exports = {
   addUpdateConstantSP,
+  getConstantSP,
 };
