@@ -25,11 +25,20 @@ router.post(
     try {
       const { userName, userPassword } = req.body;
       const connection = await getConnection();
+      const sUserName = sanityFunction(userName);
+      const sUserPassword = sanityFunction(userPassword);
+
+      if (!sUserName || !sUserPassword) {
+        return res.status(400).json({
+          success: false,
+          message: "Lütfen geçerli veriler ile tekrar deneyiniz.",
+        });
+      }
 
       const sqlQuery = "CALL userLoginSP (?,?)";
       const existingUser = await connection.query(sqlQuery, [
-        userName,
-        userPassword,
+        sUserName,
+        sUserPassword,
       ]);
       if (existingUser.length > 0) {
         return res.status(400).json({
@@ -38,16 +47,16 @@ router.post(
         });
       }
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(userPassword, salt);
+      const hashedPassword = await bcrypt.hash(sUserPassword, salt);
       const sqlQuery2 = "CALL addUserSP (?,?)";
       const response = await connection.query(sqlQuery2, [
-        userName,
+        sUserName,
         hashedPassword,
       ]);
       const payload = { user: response[0][0].userName };
       jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
         if (err) throw err;
-        res.json({ token, userName, userID: response[0][0].userID });
+        res.json({ token, userName: sUserName, userID: response[0][0].userID });
       });
       res.send(response[0][0].result);
     } catch (error) {
