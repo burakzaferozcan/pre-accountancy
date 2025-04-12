@@ -25,6 +25,7 @@ router.post(
     try {
       const { userName, userPassword } = req.body;
       const connection = await getConnection();
+
       const sUserName = sanityFunction(userName);
       const sUserPassword = sanityFunction(userPassword);
 
@@ -84,10 +85,20 @@ router.post(
       const { userName, userPassword } = req.body;
       const connection = await getConnection();
 
+      const sUserName = sanityFunction(userName);
+      const sUserPassword = sanityFunction(userPassword);
+
+      if (!sUserName || !sUserPassword) {
+        return res.status(400).json({
+          success: false,
+          message: "Lütfen geçerli veriler ile tekrar deneyiniz.",
+        });
+      }
+
       const sqlQuery = "CALL userLoginSP (?,?)";
       const existingUser = await connection.query(sqlQuery, [
-        userName,
-        userPassword,
+        sUserName,
+        sUserPassword,
       ]);
       if (existingUser.length === 0) {
         return res.status(400).json({
@@ -96,8 +107,8 @@ router.post(
         });
       }
 
-      const currentPassword = existingUser[0][0].userPassword;
-      const isMatch = await bcrypt.compare(userPassword, currentPassword);
+      const currentPassword = existingUser[0][0].sUserPassword;
+      const isMatch = await bcrypt.compare(sUserPassword, currentPassword);
 
       if (!isMatch) {
         return res.status(400).json({
@@ -109,7 +120,11 @@ router.post(
       const payload = { user: response[0][0].userName };
       jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
         if (err) throw err;
-        res.json({ token, userName, userID: existingUser[0][0].userID });
+        res.json({
+          token,
+          userName: sUserName,
+          userID: existingUser[0][0].userID,
+        });
       });
       res.send(response[0][0].result);
     } catch (error) {
