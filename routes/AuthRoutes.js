@@ -41,25 +41,31 @@ router.post(
         sUserName,
         sUserPassword,
       ]);
-      if (existingUser.length > 0) {
+
+      if (existingUser[0][0].result.isFound === false) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(sUserPassword, salt);
+        const sqlQuery2 = "CALL addUserSP (?,?)";
+        const response = await connection.query(sqlQuery2, [
+          sUserName,
+          hashedPassword,
+        ]);
+        const payload = { user: response[0][0].result.userName };
+        jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
+          if (err) throw err;
+          res.json({
+            token,
+            userName: response[0][0].result.userName,
+            userID: response[0][0].result.userID,
+          });
+        });
+        res.send(response[0][0].result);
+      } else if (existingUser.length > 0) {
         return res.status(400).json({
           success: false,
           message: "Bu kullanıcı zaten mevcut",
         });
       }
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(sUserPassword, salt);
-      const sqlQuery2 = "CALL addUserSP (?,?)";
-      const response = await connection.query(sqlQuery2, [
-        sUserName,
-        hashedPassword,
-      ]);
-      const payload = { user: response[0][0].userName };
-      jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
-        if (err) throw err;
-        res.json({ token, userName: sUserName, userID: response[0][0].userID });
-      });
-      res.send(response[0][0].result);
     } catch (error) {
       res.status(500).json({
         message: "Sunucu hatası",
