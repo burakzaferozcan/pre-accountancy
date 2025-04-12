@@ -101,11 +101,8 @@ router.post(
         });
       }
 
-      const sqlQuery = "CALL userLoginSP (?,?)";
-      const existingUser = await connection.query(sqlQuery, [
-        sUserName,
-        sUserPassword,
-      ]);
+      const sqlQuery = "CALL userLoginSP (?)";
+      const existingUser = await connection.query(sqlQuery, [sUserName]);
       if (existingUser.length === 0) {
         return res.status(400).json({
           success: false,
@@ -113,7 +110,7 @@ router.post(
         });
       }
 
-      const currentPassword = existingUser[0][0].sUserPassword;
+      const currentPassword = existingUser[0][0].result.userPassword;
       const isMatch = await bcrypt.compare(sUserPassword, currentPassword);
 
       if (!isMatch) {
@@ -123,13 +120,13 @@ router.post(
         });
       }
 
-      const payload = { user: response[0][0].userName };
+      const payload = { user: response[0][0].result.userName };
       jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
         if (err) throw err;
         res.json({
           token,
-          userName: sUserName,
-          userID: existingUser[0][0].userID,
+          userName: response[0][0].result.userName,
+          userID: existingUser[0][0].result.userID,
         });
       });
       res.send(response[0][0].result);
