@@ -12,7 +12,8 @@ const sqlData = [
 
 const sanityFunction = (value) => {
   const type = typeof value;
-  if (type !== "string" || type !== "number") return null;
+
+  if (type !== "string" && type !== "number") return null;
 
   if (type === "string") {
     for (const sqlObj of sqlData) {
@@ -22,6 +23,8 @@ const sanityFunction = (value) => {
   }
 
   if (type === "number" && isNaN(value)) return null;
+
+  return value;
 };
 
 module.exports = { sanityFunction };
