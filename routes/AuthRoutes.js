@@ -40,9 +40,9 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(userPassword, salt);
       const sqlQuery2 = "CALL addUserSP (?,?)";
-      const response = await connection.query(sqlQuery, [
+      const response = await connection.query(sqlQuery2, [
         userName,
-        userPassword,
+        hashedPassword,
       ]);
       const payload = { user: response[0][0].userName };
       jwt.sign(payload, JWTSECRET, { expiresIn: "12h" }, (err, token) => {
