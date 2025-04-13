@@ -7,11 +7,12 @@ const {
   updateByIdSP,
   deleteByIdSP,
 } = require("../controllers/ServiceController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/", getAllSP).post("/", addDataSP);
+router.get("/", authMiddleware, getAllSP).post("/", authMiddleware, addDataSP);
 router
-  .get("/:id", getByIdSP)
-  .put("/:id", updateByIdSP)
-  .delete("/:id", deleteByIdSP);
+  .get("/:id", authMiddleware, getByIdSP)
+  .put("/:id", authMiddleware, updateByIdSP)
+  .delete("/:id", authMiddleware, deleteByIdSP);
 
 module.exports = { serviceRoutes: router };
