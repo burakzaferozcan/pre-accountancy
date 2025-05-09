@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.1",
+    "bootstrap": "^5.3.3",
     "cra-template-redux": "2.0.0",
+    "primereact": "^10.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icon": "^1.0.0",
     "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.5",
     "web-vitals": "^5.0.0"
   },
   "scripts": {
