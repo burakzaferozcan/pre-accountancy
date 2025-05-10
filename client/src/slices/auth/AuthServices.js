@@ -1,4 +1,4 @@
-import axios from "axiıs";
+import axios from "axios";
 import { BASE_URL } from "../constants";
 
 const register = async (data) => {
