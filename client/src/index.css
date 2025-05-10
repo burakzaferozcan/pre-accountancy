@@ -21,3 +21,11 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.home {
+  width: 100%;
+  height: calc(100dvh - 121.06px);
+  background-image: url("assets/pre-accountancy.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
