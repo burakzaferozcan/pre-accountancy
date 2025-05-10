@@ -39,3 +39,7 @@ export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await authService.logout();
+});
