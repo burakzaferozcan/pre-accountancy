@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../constants";
-import { header } from "express-validator";
 
 const API_URL = BASE_URL + "/customer";
 
@@ -158,3 +157,19 @@ export const updateCustomerById = createAsyncThunk(
     }
   }
 );
+
+export const customerSlice = createSlice({
+  name: "customer",
+  initialState,
+  reducers: {
+    reset: (state) => {
+      state.customerTable = [];
+      state.editCustomer = {};
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.isUpdate = false;
+      state.message = "";
+    },
+  },
+});
