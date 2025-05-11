@@ -200,6 +200,17 @@ export const customerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(deleteCustomerById.pending, (state) => {
+        state.isUpdate = false;
+      })
+      .addCase(deleteCustomerById.fulfilled, (state) => {
+        state.isUpdate = true;
+      })
+      .addCase(deleteCustomerById.rejected, (state, action) => {
+        state.isUpdate = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
