@@ -211,6 +211,17 @@ export const customerSlice = createSlice({
         state.isUpdate = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(addCustomer.pending, (state) => {
+        state.isUpdate = false;
+      })
+      .addCase(addCustomer.fulfilled, (state) => {
+        state.isUpdate = true;
+      })
+      .addCase(addCustomer.rejected, (state, action) => {
+        state.isUpdate = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
