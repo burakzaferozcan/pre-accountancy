@@ -187,6 +187,19 @@ export const customerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(getCustomerById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCustomerById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.editCustomer = action.payload;
+      })
+      .addCase(getCustomerById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
