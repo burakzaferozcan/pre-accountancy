@@ -222,6 +222,21 @@ export const customerSlice = createSlice({
         state.isUpdate = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(updateCustomerById.pending, (state) => {
+        state.isUpdate = false;
+      })
+      .addCase(updateCustomerById.fulfilled, (state) => {
+        state.isUpdate = true;
+      })
+      .addCase(updateCustomerById.rejected, (state, action) => {
+        state.isUpdate = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
+
+export const { reset } = customerSlice.actions;
+
+export default customerSlice.reducer;
