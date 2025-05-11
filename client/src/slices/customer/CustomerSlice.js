@@ -126,3 +126,35 @@ export const addCustomer = createAsyncThunk(
     }
   }
 );
+
+export const updateCustomerById = createAsyncThunk(
+  "customer/updateCustomerById",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const configToken = {
+        headers: {
+          "Access-Origin-Control-Origin": "*",
+          "Content-Type": "application/json",
+          mode: "cors",
+          crossDomain: true,
+          token: token,
+        },
+      };
+      const response = await axios.put(
+        `${API_URL}/${data.id}`,
+        data,
+        configToken
+      );
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
