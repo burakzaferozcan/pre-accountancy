@@ -98,3 +98,31 @@ export const deleteCustomerById = createAsyncThunk(
     }
   }
 );
+
+export const addCustomer = createAsyncThunk(
+  "customer/addCustomer",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const configToken = {
+        headers: {
+          "Access-Origin-Control-Origin": "*",
+          "Content-Type": "application/json",
+          mode: "cors",
+          crossDomain: true,
+          token: token,
+        },
+      };
+      const response = await axios.delete(API_URL, data, configToken);
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
