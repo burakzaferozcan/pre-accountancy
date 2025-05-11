@@ -172,4 +172,21 @@ export const customerSlice = createSlice({
       state.message = "";
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllCustomer.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isUpdate = false;
+        state.isSuccess = true;
+        state.customerTable = action.payload;
+      })
+      .addCase(getAllCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
+  },
 });
