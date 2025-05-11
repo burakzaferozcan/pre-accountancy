@@ -42,3 +42,31 @@ export const getAllCustomer = createAsyncThunk(
     }
   }
 );
+
+export const getCustomerById = createAsyncThunk(
+  "customer/getCustomerById",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const configToken = {
+        headers: {
+          "Access-Origin-Control-Origin": "*",
+          "Content-Type": "application/json",
+          mode: "cors",
+          crossDomain: true,
+          token: token,
+        },
+      };
+      const response = await axios.get(`${API_URL}/${id}`, configToken);
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
