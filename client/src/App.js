@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import Header from "./components/Common/Header";
-import Footer from "./components/Common/Footer";
+import Header from "./components/Partials/Header";
+import Footer from "./components/Partials/Footer";
 
 function App() {
   return (
