@@ -113,7 +113,7 @@ export const addCustomer = createAsyncThunk(
           token: token,
         },
       };
-      const response = await axios.delete(API_URL, data, configToken);
+      const response = await axios.post(API_URL, data, configToken);
       return response.data;
     } catch (error) {
       const message =
