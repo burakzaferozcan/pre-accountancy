@@ -21,6 +21,7 @@ import CompanyPurchaseScreen from "./components/Screens/CompanyPurchaseScreen";
 import CustomerSalesPrintScreen from "./components/Screens/CustomerSalesPrintScreen";
 import CompanyPurchasePrintScreen from "./components/Screens/CompanyPurchasePrintScreen";
 import ConstantScreen from "./components/Screens/ConstantScreen";
+import ProfileScreen from "./components/Screens/ProfileScreen";
 
 export const appRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -64,6 +65,7 @@ export const appRouter = createBrowserRouter(
           element={<CompanyPurchasePrintScreen />}
         />
         <Route path="/constant" element={<ConstantScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
       </Route>
     </Route>
   )
