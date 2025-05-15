@@ -1,11 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { logout } from "../../slices/auth/AuthSlice";
 
 function Header() {
   const navigate = useNavigate();
-  const dispatvh = useDispatch();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -17,7 +19,11 @@ function Header() {
         id="navbarSupportedContent"
       >
         <div className="text-center">
-          <ul className="navbar-nav mr-auto">
+          <ul
+            className={`navbar-nav d- mr-auto ${
+              user && user.token ? "d-block" : "d-none"
+            }`}
+          >
             <li className="nav-item active">
               <Link className="nav-link" to={"/customer-definition"}>
                 Müşteri Tanım
@@ -41,7 +47,11 @@ function Header() {
           </ul>
         </div>
         <div className="cursor-pointer">
-          <FaSignOutAlt color="white" />
+          {user && user.token ? (
+            <FaSignOutAlt color="white" onClick={() => dispatch(logout())} />
+          ) : (
+            <FaSignInAlt color="white" onClick={() => navigate("/login")} />
+          )}
         </div>
       </div>
     </div>
