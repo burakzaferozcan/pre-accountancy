@@ -48,7 +48,12 @@ function Header() {
         </div>
         <div className="cursor-pointer">
           {user && user.token ? (
-            <FaSignOutAlt color="white" onClick={() => dispatch(logout())} />
+            <>
+              <span className="text-white" onClick={() => navigate("/profile")}>
+                {user && user.userName}{" "}
+              </span>
+              <FaSignOutAlt color="white" onClick={() => dispatch(logout())} />
+            </>
           ) : (
             <FaSignInAlt color="white" onClick={() => navigate("/login")} />
           )}
