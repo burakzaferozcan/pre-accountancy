@@ -204,8 +204,9 @@ export const customerSlice = createSlice({
       .addCase(deleteCustomerById.pending, (state) => {
         state.isUpdate = false;
       })
-      .addCase(deleteCustomerById.fulfilled, (state) => {
+      .addCase(deleteCustomerById.fulfilled, (state, action) => {
         state.isUpdate = true;
+        state.message = action.payload;
       })
       .addCase(deleteCustomerById.rejected, (state, action) => {
         state.isUpdate = false;
