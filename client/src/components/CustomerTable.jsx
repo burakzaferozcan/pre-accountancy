@@ -17,15 +17,18 @@ function CustomerTable({ searchText }) {
   const [visible, setVisible] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState();
 
-  const { customerTable, isLoading, isSuccess } = useSelector(
+  const { customerTable, isLoading, isSuccess, isUpdate } = useSelector(
     (state) => state.customer
   );
 
   React.useEffect(() => {
-    if (!isSuccess || isLoading) {
+    if (!isSuccess || isLoading || isUpdate) {
       dispatch(getAllCustomer);
+      if (visible) {
+        setVisible(false);
+      }
     }
-  });
+  }, [isUpdate, isSuccess, isLoading]);
 
   const onPageChange = (e) => {
     setFirst(e.first);
