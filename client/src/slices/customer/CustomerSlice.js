@@ -171,6 +171,9 @@ export const customerSlice = createSlice({
       state.isUpdate = false;
       state.message = "";
     },
+    setMessageRemove: (state) => {
+      state.message = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -238,6 +241,6 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { reset } = customerSlice.actions;
+export const { reset, setMessageRemove } = customerSlice.actions;
 
 export default customerSlice.reducer;
