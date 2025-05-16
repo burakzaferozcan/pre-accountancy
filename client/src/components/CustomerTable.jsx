@@ -2,10 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllCustomer } from "../slices/customer/CustomerSlice";
-
+import { Paginator } from "primereact/paginator";
 function CustomerTable({ searchText }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [first, setFirst] = React.useState(0);
+  const [rows, setRows] = React.useState(12);
 
   const { customerTable, isLoading, isSuccess } = useSelector(
     (state) => state.customer
@@ -16,6 +19,11 @@ function CustomerTable({ searchText }) {
       dispatch(getAllCustomer);
     }
   });
+
+  const onPageChange = (e) => {
+    setFirst(e.first);
+    setRows(e.rows);
+  };
 
   return (
     <div className="container">
@@ -80,6 +88,7 @@ function CustomerTable({ searchText }) {
             </tbody>
           )}
         </table>
+        <Paginator first={first} rows={rows} onPageChange={onPageChange} />
       </div>
     </div>
   );
