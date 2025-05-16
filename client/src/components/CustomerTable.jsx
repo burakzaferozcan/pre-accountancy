@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllCustomer } from "../slices/customer/CustomerSlice";
 import { Paginator } from "primereact/paginator";
+import { Dialog } from "primereact/dialog";
+
 function CustomerTable({ searchText }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [first, setFirst] = React.useState(0);
   const [rows, setRows] = React.useState(12);
+  const [visible, setVisible] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState();
 
   const { customerTable, isLoading, isSuccess } = useSelector(
     (state) => state.customer
@@ -23,6 +27,11 @@ function CustomerTable({ searchText }) {
   const onPageChange = (e) => {
     setFirst(e.first);
     setRows(e.rows);
+  };
+
+  const deleteModal = (id) => {
+    setDeleteId(id);
+    setVisible(true);
   };
 
   return (
@@ -70,7 +79,12 @@ function CustomerTable({ searchText }) {
                       >
                         Düzenle
                       </button>
-                      <button className="btn btn-sm btn-danger">Sil</button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => deleteModal(customer.id)}
+                      >
+                        Sil
+                      </button>
                     </td>
                     <td>{customer.fullName}</td>
                     <td>{customer.phone}</td>
@@ -90,6 +104,13 @@ function CustomerTable({ searchText }) {
         </table>
         <Paginator first={first} rows={rows} onPageChange={onPageChange} />
       </div>
+      <Dialog
+        header={"hello"}
+        visible={visible}
+        onHide={() => setVisible(false)}
+      >
+        hello
+      </Dialog>
     </div>
   );
 }
