@@ -7,6 +7,7 @@ import {
 } from "../slices/customer/CustomerSlice";
 import { Paginator } from "primereact/paginator";
 import { Dialog } from "primereact/dialog";
+import { toast } from "react-toastify";
 
 function CustomerTable({ searchText }) {
   const dispatch = useDispatch();
@@ -17,9 +18,8 @@ function CustomerTable({ searchText }) {
   const [visible, setVisible] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState();
 
-  const { customerTable, isLoading, isSuccess, isUpdate } = useSelector(
-    (state) => state.customer
-  );
+  const { customerTable, isLoading, isSuccess, isUpdate, message } =
+    useSelector((state) => state.customer);
 
   React.useEffect(() => {
     if (!isSuccess || isLoading || isUpdate) {
@@ -29,6 +29,12 @@ function CustomerTable({ searchText }) {
       }
     }
   }, [isUpdate, isSuccess, isLoading]);
+
+  React.useEffect(() => {
+    if (message.isDeleted && message.message !== "") {
+      toast(message.message);
+    }
+  }, [message]);
 
   const onPageChange = (e) => {
     setFirst(e.first);
