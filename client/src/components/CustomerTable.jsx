@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   deleteCustomerById,
   getAllCustomer,
+  setMessageRemove,
 } from "../slices/customer/CustomerSlice";
 import { Paginator } from "primereact/paginator";
 import { Dialog } from "primereact/dialog";
@@ -33,6 +34,7 @@ function CustomerTable({ searchText }) {
   React.useEffect(() => {
     if (message.isDeleted && message.message !== "") {
       toast(message.message);
+      dispatch(setMessageRemove());
     }
   }, [message]);
 
