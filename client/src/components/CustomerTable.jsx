@@ -36,33 +36,41 @@ function CustomerTable({ searchText }) {
           customerTable.length > 0 &&
           !customerTable.isFound ? (
             <tbody>
-              {customerTable.map((customer, index) => (
-                <tr>
-                  <td>{customer.id}</td>
-                  <td className="d-flex flex-row justify-content-center gap-1">
-                    <button
-                      className="btn btn-sm btn-primary"
-                      onClick={() => navigate(`/customer-sales/${customer.id}`)}
-                    >
-                      Seç
-                    </button>
-                    <button
-                      className="btn btn-sm btn-secondary"
-                      onClick={() =>
-                        navigate(`/customer-definition/${customer.id}`)
-                      }
-                    >
-                      Düzenle
-                    </button>
-                    <button className="btn btn-sm btn-danger">Sil</button>
-                  </td>
-                  <td>{customer.fullName}</td>
-                  <td>{customer.phone}</td>
-                  <td>{customer.totalDebts}</td>
-                  <td>{customer.totalCollection}</td>
-                  <td>{customer.balance}</td>
-                </tr>
-              ))}
+              {customerTable
+                .filter((customer) =>
+                  customer.fullName
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
+                )
+                .map((customer, index) => (
+                  <tr>
+                    <td>{customer.id}</td>
+                    <td className="d-flex flex-row justify-content-center gap-1">
+                      <button
+                        className="btn btn-sm btn-primary"
+                        onClick={() =>
+                          navigate(`/customer-sales/${customer.id}`)
+                        }
+                      >
+                        Seç
+                      </button>
+                      <button
+                        className="btn btn-sm btn-secondary"
+                        onClick={() =>
+                          navigate(`/customer-definition/${customer.id}`)
+                        }
+                      >
+                        Düzenle
+                      </button>
+                      <button className="btn btn-sm btn-danger">Sil</button>
+                    </td>
+                    <td>{customer.fullName}</td>
+                    <td>{customer.phone}</td>
+                    <td>{customer.totalDebts}</td>
+                    <td>{customer.totalCollection}</td>
+                    <td>{customer.balance}</td>
+                  </tr>
+                ))}
             </tbody>
           ) : (
             <tbody>
