@@ -78,6 +78,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
+        const expireTime = new Date().getTime() + 1 * 60 * 60 * 1000;
+        localStorage.setItem("expireTime", expireTime);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
