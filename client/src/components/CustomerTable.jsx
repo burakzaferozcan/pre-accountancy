@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllCustomer } from "../slices/customer/CustomerSlice";
+import {
+  deleteCustomerById,
+  getAllCustomer,
+} from "../slices/customer/CustomerSlice";
 import { Paginator } from "primereact/paginator";
 import { Dialog } from "primereact/dialog";
 
@@ -60,7 +63,7 @@ function CustomerTable({ searchText }) {
                     .includes(searchText.toLowerCase())
                 )
                 .map((customer, index) => (
-                  <tr>
+                  <tr key={index}>
                     <td>{customer.id}</td>
                     <td className="d-flex flex-row justify-content-center gap-1">
                       <button
@@ -95,7 +98,7 @@ function CustomerTable({ searchText }) {
                 ))}
             </tbody>
           ) : (
-            <tbody>
+            <tbody key={1}>
               <tr>
                 <td>{customerTable.message}</td>
               </tr>
@@ -105,11 +108,32 @@ function CustomerTable({ searchText }) {
         <Paginator first={first} rows={rows} onPageChange={onPageChange} />
       </div>
       <Dialog
-        header={"hello"}
+        header={"Kayıt Silme Onayı"}
         visible={visible}
         onHide={() => setVisible(false)}
+        headerStyle={{ backgroundColor: "darkred", color: "white" }}
+        contentStyle={{ backgroundColor: "lightgray" }}
+        style={{ width: "50vw" }}
       >
-        hello
+        <div className="mt-5">
+          <div>
+            <b>{deleteId} No'lu kaydı silmek istiyor musunuz?</b>
+            <div className="d-flex flex-row justify-content-between mt-3 gap-2">
+              <button
+                className="btn btn-sm w-100 btn-danger"
+                onClick={() => dispatch(deleteCustomerById(deleteId))}
+              >
+                Sil
+              </button>
+              <button
+                className="btn btn-sm w-100 btn-secondary"
+                onClick={() => setVisible(false)}
+              >
+                Vazgeç
+              </button>
+            </div>
+          </div>
+        </div>
       </Dialog>
     </div>
   );
