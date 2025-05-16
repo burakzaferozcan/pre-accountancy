@@ -1,9 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllCustomer } from "../slices/customer/CustomerSlice";
 
 function CustomerTable({ searchText }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { customerTable, isLoading, isSuccess } = useSelector(
     (state) => state.customer
   );
@@ -37,8 +40,18 @@ function CustomerTable({ searchText }) {
                 <tr>
                   <td>{customer.id}</td>
                   <td className="d-flex flex-row justify-content-center gap-1">
-                    <button className="btn btn-sm btn-primary">Seç</button>
-                    <button className="btn btn-sm btn-secondary">
+                    <button
+                      className="btn btn-sm btn-primary"
+                      onClick={() => navigate(`/customer-sales/${customer.id}`)}
+                    >
+                      Seç
+                    </button>
+                    <button
+                      className="btn btn-sm btn-secondary"
+                      onClick={() =>
+                        navigate(`/customer-definition/${customer.id}`)
+                      }
+                    >
                       Düzenle
                     </button>
                     <button className="btn btn-sm btn-danger">Sil</button>
