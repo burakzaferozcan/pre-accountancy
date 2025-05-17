@@ -59,10 +59,8 @@ const getByIdSP = async (req, res) => {
 };
 const updateByIdSP = async (req, res) => {
   try {
-    let id = req.params.id;
-    let { fullName, tckn, phone, address, reference } = req.body;
+    let { fullName, tckn, phone, address, reference, id } = req.body;
     const sId = sanityFunction(id);
-
     const sFullName = sanityFunction(fullName);
     const sTckn = sanityFunction(tckn);
     const sPhone = sanityFunction(phone);
