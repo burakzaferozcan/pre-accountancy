@@ -1,7 +1,11 @@
 import React from "react";
 import { FaSave } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { addCustomer } from "../../slices/customer/CustomerSlice";
 
 function AddCustomerScreen() {
+  const dispatch = useDispatch();
   const [data, setData] = React.useState({
     fullName: "",
     tckn: "",
@@ -14,6 +18,13 @@ function AddCustomerScreen() {
 
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const customerSave = async () => {
+    if (fullName === "" || tckn === "") {
+      toast.error("Lütfen Boş alanları doldurunuz");
+    }
+    dispatch(addCustomer(data));
   };
 
   return (
