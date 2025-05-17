@@ -10,11 +10,11 @@ const {
 } = require("../controllers/SalesController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/sales/:id", authMiddleware, getAllSalesByIdSP);
-router.get("/collections/:id", authMiddleware, getAllCollectionsByIdSP);
-router.post("/sales", authMiddleware, addSalesSP);
+router.post("/", authMiddleware, addSalesSP);
+router.get("/:id", authMiddleware, getAllSalesByIdSP);
+router.delete("/:id", authMiddleware, deleteSalesByIdSP);
 router.post("/collections", authMiddleware, addCollectionsSP);
-router.delete("/sales/:id", authMiddleware, deleteSalesByIdSP);
+router.get("/collections/:id", authMiddleware, getAllCollectionsByIdSP);
 router.delete("/collections/:id", authMiddleware, deleteCollectionsByIdSP);
 
 module.exports = { salesRoutes: router };
