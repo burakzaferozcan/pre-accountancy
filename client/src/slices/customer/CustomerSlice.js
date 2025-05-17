@@ -170,6 +170,7 @@ export const customerSlice = createSlice({
       state.isSuccess = false;
       state.isLoading = false;
       state.isUpdate = false;
+      state.isEdit = false;
       state.message = "";
     },
     setMessageRemove: (state) => {
