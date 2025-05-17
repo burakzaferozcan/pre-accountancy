@@ -219,8 +219,9 @@ export const customerSlice = createSlice({
       .addCase(addCustomer.pending, (state) => {
         state.isUpdate = false;
       })
-      .addCase(addCustomer.fulfilled, (state) => {
+      .addCase(addCustomer.fulfilled, (state, action) => {
         state.isUpdate = true;
+        state.message = action.payload;
       })
       .addCase(addCustomer.rejected, (state, action) => {
         state.isUpdate = false;
