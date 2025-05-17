@@ -3,8 +3,8 @@ import { FaSync } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
-  addCustomer,
   getCustomerById,
+  updateCustomerById,
 } from "../../slices/customer/CustomerSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -34,13 +34,13 @@ function EditCustomerScreen() {
     if (fullName === "" || tckn === "") {
       toast.error("Lütfen Boş alanları doldurunuz");
     }
-    dispatch(addCustomer(data));
+    dispatch(updateCustomerById({ ...data, id: customerID }));
   };
 
   React.useEffect(() => {
-    if (message.isAdded && message.message !== "") {
+    if (message.isUpdated && message.message !== "") {
       toast(message.message);
-      if (message.isAdded) {
+      if (message.isUpdated) {
         navigate(-1);
       }
     }
