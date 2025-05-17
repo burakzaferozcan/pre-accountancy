@@ -1,4 +1,9 @@
 import React from "react";
+import CustomerSalesProcess from "../CustomerSalesProcess";
+import CustomerCollectionProcess from "../CustomerCollectionProcess";
+import CustomerSalesTable from "../CustomerSalesTable";
+import CustomerCollectionTable from "../CustomerCollectionTable";
+import CustomerBalance from "../CustomerBalance";
 
 function CustomerSalesScreen() {
   return (
