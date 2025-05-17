@@ -1,11 +1,14 @@
 import React from "react";
 import { FaSave } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addCustomer } from "../../slices/customer/CustomerSlice";
+import { useNavigate } from "react-router-dom";
 
 function AddCustomerScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { message } = useSelector((state) => state.customer);
   const [data, setData] = React.useState({
     fullName: "",
     tckn: "",
@@ -26,6 +29,15 @@ function AddCustomerScreen() {
     }
     dispatch(addCustomer(data));
   };
+
+  React.useEffect(() => {
+    if (message.isAdded && message.message !== "") {
+      toast(message.message);
+      if (message.isAdded) {
+        navigate(-1);
+      }
+    }
+  }, [message, navigate]);
 
   return (
     <div className="container mt-4">
