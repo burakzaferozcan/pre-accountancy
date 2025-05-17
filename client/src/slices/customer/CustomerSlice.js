@@ -175,6 +175,9 @@ export const customerSlice = createSlice({
     setMessageRemove: (state) => {
       state.message = "";
     },
+    setEditRemove: (state) => {
+      state.editCustomer = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -244,6 +247,6 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { reset, setMessageRemove } = customerSlice.actions;
+export const { reset, setMessageRemove, setEditRemove } = customerSlice.actions;
 
 export default customerSlice.reducer;
