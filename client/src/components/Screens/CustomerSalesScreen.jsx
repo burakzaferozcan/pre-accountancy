@@ -16,6 +16,7 @@ function CustomerSalesScreen() {
           <CustomerCollectionProcess />
         </div>
       </div>
+      <hr className="my-2" />
       <div className="tables d-flex flex-row gap-2">
         <div className="col-8">
           <CustomerSalesTable />
