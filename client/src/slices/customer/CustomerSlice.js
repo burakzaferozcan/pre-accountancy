@@ -11,6 +11,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   isUpdate: false,
+  isEdit: false,
   message: "",
 };
 
@@ -196,7 +197,7 @@ export const customerSlice = createSlice({
       })
       .addCase(getCustomerById.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isEdit = true;
         state.editCustomer = action.payload;
       })
       .addCase(getCustomerById.rejected, (state, action) => {
