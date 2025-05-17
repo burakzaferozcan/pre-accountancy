@@ -2,10 +2,20 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import CustomerTable from "../CustomerTable";
+import { useDispatch, useSelector } from "react-redux";
+import { setEditRemove } from "../../slices/customer/CustomerSlice";
 
 function CustomerDefinitionScreen() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = React.useState("");
+  const { editCustomer, isEdit } = useSelector((state) => state.customer);
+
+  React.useEffect(() => {
+    if (isEdit || editCustomer.id) {
+      dispatch(setEditRemove());
+    }
+  }, [isEdit, editCustomer]);
 
   return (
     <div className="customer-definition">
