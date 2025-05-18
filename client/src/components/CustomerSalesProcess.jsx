@@ -1,4 +1,4 @@
-import React from "react";
+import React, { act } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStock } from "../slices/stock/stockSlice";
 import { useParams } from "react-router-dom";
@@ -17,6 +17,9 @@ function CustomerSalesProcess() {
     amount: 0,
     price: 0,
   });
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+  const [activeItem, setActiveItem] = React.useState({});
+
   const { stockID, description, amount, price } = data;
   const priceRef = React.useRef();
   const amountRef = React.useRef();
@@ -33,6 +36,10 @@ function CustomerSalesProcess() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    const matchIndex = stockTable.findIndex((item) =>
+      item.description.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setActiveIndex(matchIndex);
   };
 
   const onChange = (e) => {
@@ -48,6 +55,11 @@ function CustomerSalesProcess() {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       if (e.target.value === "description") {
+        setData((prev) => ({
+          ...prev,
+          description: activeItem.description,
+          price: activeItem.price,
+        }));
         priceRef.current.focus();
       } else if (e.target.value === "price") {
         amountRef.current.focus();
@@ -55,7 +67,26 @@ function CustomerSalesProcess() {
         saveRef.current.focus();
       }
     }
+    if (e.target.name === "description") {
+      if (e.key === "ArrowDown" && activeIndex < stockTable.length - 1) {
+        setActiveIndex((prev) => prev + 1);
+      } else if (e.key === "ArrowUp" && activeIndex > 0) {
+        setActiveIndex((prev) => prev - 1);
+      }
+    }
   };
+
+  React.useEffect(() => {
+    if (activeIndex !== -1 && stockTable[activeIndex]) {
+      setActiveItem(stockTable[activeIndex]);
+      setData((prev) => ({
+        ...prev,
+        stockID: activeItem.stockID,
+        price: activeItem.price,
+        description: activeItem.description,
+      }));
+    }
+  }, [activeIndex, stockTable]);
 
   return (
     <div
@@ -96,15 +127,18 @@ function CustomerSalesProcess() {
           <label htmlFor="amount" className="col-4">
             Miktar :
           </label>
-          <input
-            ref={amountRef}
-            type="text"
-            name="amount"
-            onChange={onChange}
-            value={amount}
-            className="form-conrol"
-            onKeyDown={handleKeyDown}
-          />
+          <div className="d-flex flex-row gap-2">
+            <input
+              ref={amountRef}
+              type="text"
+              name="amount"
+              onChange={onChange}
+              value={amount}
+              className="form-conrol"
+              onKeyDown={handleKeyDown}
+            />
+            <strong>Toplam : {amount && price && amount * price}</strong>
+          </div>
         </div>
         <button ref={saveRef} className="btn btn-primary">
           <FaSave /> Satış Kaydet
@@ -123,7 +157,13 @@ function CustomerSalesProcess() {
             {filterStockData && filterStockData.length > 0 && (
               <tbody>
                 {filterStockData.map((item) => (
-                  <tr key={item.id}>
+                  <tr
+                    key={item.id}
+                    style={{
+                      fontWeight:
+                        item.id === activeIndex + 1 ? "bold" : "normal",
+                    }}
+                  >
                     <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>{item.amount}</td>
