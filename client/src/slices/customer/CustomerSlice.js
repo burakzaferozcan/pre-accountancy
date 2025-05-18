@@ -211,6 +211,9 @@ export const customerSlice = createSlice({
     setEditRemove: (state) => {
       state.editCustomer = {};
     },
+    setBalanceRefresh: (state) => {
+      state.isBalanceRefresh = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -292,6 +295,7 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { reset, setMessageRemove, setEditRemove } = customerSlice.actions;
+export const { reset, setMessageRemove, setEditRemove, setBalanceRefresh } =
+  customerSlice.actions;
 
 export default customerSlice.reducer;
