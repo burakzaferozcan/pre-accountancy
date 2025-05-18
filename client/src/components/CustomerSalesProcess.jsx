@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllStock } from "../slices/stock/stockSlice";
 import { useParams } from "react-router-dom";
 import { FaSave } from "react-icons/fa";
+import { addSales } from "../slices/sales/SalesSlice";
 function CustomerSalesProcess() {
   const dispatch = useDispatch();
   const params = useParams();
@@ -59,6 +60,7 @@ function CustomerSalesProcess() {
           ...prev,
           description: activeItem.description,
           price: activeItem.price,
+          stockID: activeItem.id,
         }));
         priceRef.current.focus();
       } else if (e.target.value === "price") {
@@ -87,6 +89,11 @@ function CustomerSalesProcess() {
       }));
     }
   }, [activeIndex, stockTable]);
+
+  const salesSave = async () => {
+    let data = { customerID, description, stockID, amount, price };
+    dispatch(addSales(data));
+  };
 
   return (
     <div
@@ -140,7 +147,7 @@ function CustomerSalesProcess() {
             <strong>Toplam : {amount && price && amount * price}</strong>
           </div>
         </div>
-        <button ref={saveRef} className="btn btn-primary">
+        <button ref={saveRef} className="btn btn-primary" onClick={salesSave}>
           <FaSave /> Satış Kaydet
         </button>
       </div>
