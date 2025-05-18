@@ -5,6 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
 import { deleteSalesById, getAllSales } from "../slices/sales/SalesSlice";
 import { toast } from "react-toastify";
+import { Paginator } from "primereact/paginator";
 
 function CustomerSalesTable() {
   const params = useParams();
@@ -15,6 +16,13 @@ function CustomerSalesTable() {
   );
   const [deleteID, setDeleteID] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
+  const [first, setFirst] = React.useState(0);
+  const [rows, setRows] = React.useState(9);
+
+  const onPageChange = (e) => {
+    setFirst(e.first);
+    setRows(e.rows);
+  };
 
   React.useEffect(() => {
     if (isLoading || !isSuccess || isUpdate) {
@@ -54,7 +62,7 @@ function CustomerSalesTable() {
         </thead>
         {salesTable && salesTable.length > 0 ? (
           <tbody>
-            {salesTable.map((sale) => (
+            {salesTable.slice(first, first + rows).map((sale) => (
               <tr key={sale.id}>
                 <td>
                   <button
@@ -82,6 +90,13 @@ function CustomerSalesTable() {
           </tbody>
         )}
       </table>
+      <Paginator
+        first={first}
+        totalRecords={salesTable && salesTable.length}
+        rows={rows}
+        onPageChange={onPageChange}
+      />
+
       <Dialog
         header={"Kayıt Silme Onayı"}
         visible={visible}
