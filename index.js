@@ -4,7 +4,7 @@ const cors = require("cors");
 const express = require("express");
 const Auth = require("./routes/AuthRoutes");
 const Customer = require("./routes/CustomerRoutes");
-const Service = require("./routes/ServiceRoutes");
+const Company = require("./routes/CompanyRoutes");
 const Stock = require("./routes/StockRoutes");
 const ProductPurchase = require("./routes/ProductPurchaseRoutes");
 const Sales = require("./routes/SalesRoutes");
@@ -34,9 +34,9 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", Auth.authRoutes);
 app.use("/api/customer", Customer.customerRoutes);
-app.use("/api/service", Service.serviceRoutes);
+app.use("/api/company", Company.companyRoutes);
 app.use("/api/stock", Stock.stockRoutes);
-app.use("/api/product-purchase", ProductPurchase.productPurchaseRoutes);
+app.use("/api/purchase", ProductPurchase.productPurchaseRoutes);
 app.use("/api/sales", Sales.salesRoutes);
 app.use("/api/constant", Constant.constantRoutes);
 app.use(errorHandler);

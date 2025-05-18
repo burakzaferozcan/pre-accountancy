@@ -6,7 +6,7 @@ const {
   getByIdSP,
   updateByIdSP,
   deleteByIdSP,
-} = require("../controllers/ServiceController");
+} = require("../controllers/CompanyController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.get("/", authMiddleware, getAllSP).post("/", authMiddleware, addDataSP);
@@ -15,4 +15,4 @@ router
   .put("/:id", authMiddleware, updateByIdSP)
   .delete("/:id", authMiddleware, deleteByIdSP);
 
-module.exports = { serviceRoutes: router };
+module.exports = { companyRoutes: router };
