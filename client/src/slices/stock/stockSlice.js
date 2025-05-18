@@ -159,7 +159,7 @@ export const updateStockById = createAsyncThunk(
   }
 );
 
-export const customerSlice = createSlice({
+export const stockSlice = createSlice({
   name: "stock",
   initialState,
   reducers: {
