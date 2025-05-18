@@ -1,7 +1,56 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { setEditRemove } from "../../slices/company/CompanySlice";
+import CompanyTable from "../CompanyTable";
 
 function CompanyDefinitionScreen() {
-  return <div>CompanyDefinitionScreen</div>;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchText, setSearchText] = React.useState("");
+  const { editCompany, isEdit } = useSelector((state) => state.company);
+
+  React.useEffect(() => {
+    if (isEdit || editCompany.id) {
+      dispatch(setEditRemove());
+    }
+  }, [isEdit, editCompany]);
+
+  return (
+    <div className="customer-definition">
+      <h2 className="text-center">Firma Kartları</h2>
+      <hr className="my-2" />
+      <div className="container d-flex flex-row justify-content-between gap-2">
+        <div className="col-7">
+          <div className="d-flex col-12">
+            <label htmlFor="search" className="col-4 mt-1">
+              Firma Adı
+            </label>
+            <div className="col-10">
+              <input
+                type="text"
+                name="searchText"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="form-control col-8"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-3">
+          <button className="btn btn-primary" onClick={() => navigate("add")}>
+            <FaPlus />
+            Firma Kartı Ekle
+          </button>
+        </div>
+      </div>
+      <div className="container">
+        <hr className="my-2" />
+        <CompanyTable searchText={searchText} />
+      </div>
+    </div>
+  );
 }
 
 export default CompanyDefinitionScreen;
