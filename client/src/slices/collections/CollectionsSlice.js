@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../constants";
 
-const API_URL = BASE_URL + "/collections";
+const API_URL = BASE_URL + "/sales/collections";
 
 const initialState = {
   collectionsTable: [],
