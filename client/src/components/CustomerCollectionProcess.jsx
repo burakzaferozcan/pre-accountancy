@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaSave } from "react-icons/fa";
-import { addCollections } from "../../slices/collections/CollectionsSlice";
+import { addCollections } from "../slices/collections/CollectionsSlice";
 import { setBalanceRefresh } from "../slices/customer/CustomerSlice";
 
 function CustomerCollectionProcess() {
