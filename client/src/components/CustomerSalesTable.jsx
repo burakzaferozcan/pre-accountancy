@@ -46,7 +46,7 @@ function CustomerSalesTable() {
           <tr>
             <th>İşlem</th>
             <th>Tarih</th>
-            <th>Acaklama</th>
+            <th>Açıklama</th>
             <th>Fiyat</th>
             <th>Miktar</th>
             <th>Toplam</th>
