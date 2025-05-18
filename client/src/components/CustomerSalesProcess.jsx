@@ -1,6 +1,6 @@
 import React, { act } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllStock } from "../slices/stock/stockSlice";
+import { getAllStock } from "../slices/stock/StockSlice";
 import { useParams } from "react-router-dom";
 import { FaSave } from "react-icons/fa";
 import { addSales } from "../slices/sales/SalesSlice";
