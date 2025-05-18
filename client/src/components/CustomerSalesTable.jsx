@@ -2,6 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSalesByIdSP } from "../../../controllers/SalesController";
+import { FaTrashAlt } from "react-icons/fa";
+import { Dialog } from "primereact/dialog";
+import { deleteSalesById } from "../slices/sales/SalesSlice";
 
 function CustomerSalesTable() {
   const params = useParams();
@@ -10,12 +13,22 @@ function CustomerSalesTable() {
   const { salesTable, isUpdate, isSuccess, isLoading } = useSelector(
     (state) => state.sales
   );
+  const [deleteID, setDeleteID] = React.useState(0);
+  const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     if (isLoading || !isSuccess || isUpdate) {
       dispatch(getAllSalesByIdSP(customerID));
+      if (visible) {
+        setVisible(false);
+      }
     }
-  }, [isLoading, isSuccess, isUpdate, customerID]);
+  }, [visible, isLoading, isSuccess, isUpdate, customerID]);
+
+  const deleteModal = (sale) => {
+    setDeleteID(sale.id);
+    setVisible(true);
+  };
 
   return (
     <div
@@ -25,6 +38,7 @@ function CustomerSalesTable() {
       <table className="table">
         <thead className="table-dark">
           <tr>
+            <th>İşlem</th>
             <th>Tarih</th>
             <th>Acaklama</th>
             <th>Fiyat</th>
@@ -36,6 +50,14 @@ function CustomerSalesTable() {
           <tbody>
             {salesTable.map((sale) => (
               <tr key={sale.id}>
+                <td>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => deleteModal(sale)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </td>
                 <td>{sale.date}</td>
                 <td>{sale.stockName}</td>
                 <td>{sale.price}</td>
@@ -54,6 +76,34 @@ function CustomerSalesTable() {
           </tbody>
         )}
       </table>
+      <Dialog
+        header={"Kayıt Silme Onayı"}
+        visible={visible}
+        onHide={() => setVisible(false)}
+        headerStyle={{ backgroundColor: "darkred", color: "white" }}
+        contentStyle={{ backgroundColor: "lightgray" }}
+        style={{ width: "50vw" }}
+      >
+        <div className="mt-5">
+          <div>
+            <b>{deleteID} No'lu kaydı silmek istiyor musunuz?</b>
+            <div className="d-flex flex-row justify-content-between mt-3 gap-2">
+              <button
+                className="btn btn-sm w-100 btn-danger"
+                onClick={() => dispatch(deleteSalesById(deleteID))}
+              >
+                Sil
+              </button>
+              <button
+                className="btn btn-sm w-100 btn-secondary"
+                onClick={() => setVisible(false)}
+              >
+                Vazgeç
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }
