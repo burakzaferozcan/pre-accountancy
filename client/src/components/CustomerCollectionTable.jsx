@@ -17,6 +17,13 @@ function CustomerCollectionTable() {
     useSelector((state) => state.collections);
   const [deleteID, setDeleteID] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
+  const [first, setFirst] = React.useState(0);
+  const [rows, setRows] = React.useState(9);
+
+  const onPageChange = (e) => {
+    setFirst(e.first);
+    setRows(e.rows);
+  };
 
   React.useEffect(() => {
     if (isLoading || !isSuccess || isUpdate) {
@@ -53,7 +60,7 @@ function CustomerCollectionTable() {
         </thead>
         {collectionsTable && collectionsTable.length > 0 ? (
           <tbody>
-            {collectionsTable.map((sale) => (
+            {collectionsTable.slice(first, first + rows).map((sale) => (
               <tr key={sale.id}>
                 <td>
                   <button
@@ -78,6 +85,13 @@ function CustomerCollectionTable() {
           </tbody>
         )}
       </table>
+      <Paginator
+        first={first}
+        totalRecords={collectionsTable && collectionsTable.length}
+        rows={rows}
+        onPageChange={onPageChange}
+      />
+
       <Dialog
         header={"Kayıt Silme Onayı"}
         visible={visible}
