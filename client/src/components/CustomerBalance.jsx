@@ -18,7 +18,7 @@ function CustomerBalance() {
   }, [isBalanceRefresh, customerID]);
 
   return (
-    <div className="card" style={{ padding: "5px", width: "97%" }}>
+    <div className="card mt-4" style={{ padding: "5px", width: "97%" }}>
       <div className="d-flex flex-column">
         <div className="d-flex col-12 gap-1">
           <div className="d-flex-col-6">

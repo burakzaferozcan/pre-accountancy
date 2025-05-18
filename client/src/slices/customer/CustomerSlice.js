@@ -13,7 +13,7 @@ const initialState = {
   isLoading: false,
   isUpdate: false,
   isEdit: false,
-  isBalanceRefresh: true,
+  isBalanceRefresh: false,
   message: "",
 };
 
@@ -202,7 +202,7 @@ export const customerSlice = createSlice({
       state.isLoading = false;
       state.isUpdate = false;
       state.isEdit = false;
-      state.isBalanceRefresh = true;
+      state.isBalanceRefresh = false;
       state.message = "";
     },
     setMessageRemove: (state) => {
@@ -212,7 +212,7 @@ export const customerSlice = createSlice({
       state.editCustomer = {};
     },
     setBalanceRefresh: (state) => {
-      state.isBalanceRefresh = false;
+      state.isBalanceRefresh = true;
     },
   },
   extraReducers: (builder) => {
@@ -281,14 +281,14 @@ export const customerSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(getCustomerInfoById.pending, (state) => {
-        state.isBalanceRefresh = true;
+        state.isBalanceRefresh = false;
       })
       .addCase(getCustomerInfoById.fulfilled, (state, action) => {
-        state.isBalanceRefresh = false;
+        state.isBalanceRefresh = true;
         state.balanceTable = action.payload;
       })
       .addCase(getCustomerInfoById.rejected, (state, action) => {
-        state.isBalanceRefresh = true;
+        state.isBalanceRefresh = false;
         state.isError = true;
         state.message = action.payload;
       });
