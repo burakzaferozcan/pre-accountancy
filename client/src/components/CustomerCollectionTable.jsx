@@ -8,6 +8,7 @@ import {
   getAllCollections,
 } from "../slices/collections/CollectionsSlice";
 import { toast } from "react-toastify";
+import { setBalanceRefresh } from "../slices/customer/CustomerSlice";
 
 function CustomerCollectionTable() {
   const params = useParams();
@@ -18,7 +19,7 @@ function CustomerCollectionTable() {
   const [deleteID, setDeleteID] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
   const [first, setFirst] = React.useState(0);
-  const [rows, setRows] = React.useState(9);
+  const [rows, setRows] = React.useState(7);
 
   const onPageChange = (e) => {
     setFirst(e.first);
@@ -106,7 +107,10 @@ function CustomerCollectionTable() {
             <div className="d-flex flex-row justify-content-between mt-3 gap-2">
               <button
                 className="btn btn-sm w-100 btn-danger"
-                onClick={() => dispatch(deleteCollectionsById(deleteID))}
+                onClick={() => {
+                  dispatch(deleteCollectionsById(deleteID));
+                  dispatch(setBalanceRefresh());
+                }}
               >
                 Sil
               </button>
