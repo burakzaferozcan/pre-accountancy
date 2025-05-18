@@ -35,7 +35,7 @@ export const appRouter = createBrowserRouter(
           element={<CustomerDefinitionScreen />}
         />
         <Route
-          path="/customer-definition:id"
+          path="/customer-definition/:id"
           element={<EditCustomerScreen />}
         />
         <Route
@@ -46,22 +46,22 @@ export const appRouter = createBrowserRouter(
           path="/company-definition"
           element={<CompanyDefinitionScreen />}
         />
-        <Route path="/company-definition:id" element={<EditCompanyScreen />} />
+        <Route path="/company-definition/:id" element={<EditCompanyScreen />} />
         <Route path="/company-definition/add" element={<AddCompanyScreen />} />
         <Route path="/stock-definition" element={<StockDefinitionScreen />} />
-        <Route path="/stock-definition:id" element={<EditStockScreen />} />
+        <Route path="/stock-definition/:id" element={<EditStockScreen />} />
         <Route path="/stock-definition/add" element={<AddStockScreen />} />
-        <Route path="/customer-sales:id" element={<CustomerSalesScreen />} />
+        <Route path="/customer-sales/:id" element={<CustomerSalesScreen />} />
         <Route
-          path="/customer-sales/print:id"
+          path="/customer-sales/print/:id"
           element={<CustomerSalesPrintScreen />}
         />
         <Route
-          path="/company-purchase:id"
+          path="/company-purchase/:id"
           element={<CompanyPurchaseScreen />}
         />
         <Route
-          path="/company-purchase/print:id"
+          path="/company-purchase/print/:id"
           element={<CompanyPurchasePrintScreen />}
         />
         <Route path="/constant" element={<ConstantScreen />} />
