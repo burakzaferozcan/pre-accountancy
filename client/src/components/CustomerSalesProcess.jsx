@@ -45,6 +45,18 @@ function CustomerSalesProcess() {
       )
     : stockTable;
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (e.target.value === "description") {
+        priceRef.current.focus();
+      } else if (e.target.value === "price") {
+        amountRef.current.focus();
+      } else if (e.target.value === "amount") {
+        saveRef.current.focus();
+      }
+    }
+  };
+
   return (
     <div
       className="d-flex flex-row gap-1 mt-2"
@@ -63,6 +75,7 @@ function CustomerSalesProcess() {
             onChange={onStockChange}
             value={description}
             className="form-conrol"
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className="input-group">
@@ -76,6 +89,7 @@ function CustomerSalesProcess() {
             onChange={onChange}
             value={price}
             className="form-conrol"
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className="input-group">
@@ -89,6 +103,7 @@ function CustomerSalesProcess() {
             onChange={onChange}
             value={amount}
             className="form-conrol"
+            onKeyDown={handleKeyDown}
           />
         </div>
         <button ref={saveRef} className="btn btn-primary">
