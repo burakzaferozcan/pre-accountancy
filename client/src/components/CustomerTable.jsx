@@ -99,6 +99,14 @@ function CustomerTable({ searchText }) {
                       >
                         Sil
                       </button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() =>
+                          navigate(`/customer-sales/print/${customer.id}`)
+                        }
+                      >
+                        Yazdır
+                      </button>
                     </td>
                     <td>{customer.fullName}</td>
                     <td>{customer.phone}</td>
