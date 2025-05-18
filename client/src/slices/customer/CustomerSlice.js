@@ -7,11 +7,13 @@ const API_URL = BASE_URL + "/customer";
 const initialState = {
   customerTable: [],
   editCustomer: {},
+  balanceTable: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
   isUpdate: false,
   isEdit: false,
+  isBalanceRefresh: true,
   message: "",
 };
 
@@ -159,6 +161,34 @@ export const updateCustomerById = createAsyncThunk(
   }
 );
 
+export const getCustomerInfoById = createAsyncThunk(
+  "customer/getCustomerInfoById",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const configToken = {
+        headers: {
+          "Access-Origin-Control-Origin": "*",
+          "Content-Type": "application/json",
+          mode: "cors",
+          crossDomain: true,
+          token: token,
+        },
+      };
+      const response = await axios.get(`${API_URL}/info/${id}`, configToken);
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const customerSlice = createSlice({
   name: "customer",
   initialState,
@@ -166,11 +196,13 @@ export const customerSlice = createSlice({
     reset: (state) => {
       state.customerTable = [];
       state.editCustomer = {};
+      state.balanceTable = {};
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
       state.isUpdate = false;
       state.isEdit = false;
+      state.isBalanceRefresh = true;
       state.message = "";
     },
     setMessageRemove: (state) => {
@@ -242,6 +274,18 @@ export const customerSlice = createSlice({
       })
       .addCase(updateCustomerById.rejected, (state, action) => {
         state.isUpdate = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getCustomerInfoById.pending, (state) => {
+        state.isBalanceRefresh = true;
+      })
+      .addCase(getCustomerInfoById.fulfilled, (state, action) => {
+        state.isBalanceRefresh = false;
+        state.balanceTable = action.payload;
+      })
+      .addCase(getCustomerInfoById.rejected, (state, action) => {
+        state.isBalanceRefresh = true;
         state.isError = true;
         state.message = action.payload;
       });
