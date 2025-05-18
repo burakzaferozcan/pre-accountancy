@@ -1,17 +1,16 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllSalesByIdSP } from "../../../controllers/SalesController";
 import { FaTrashAlt } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
-import { deleteSalesById } from "../slices/sales/SalesSlice";
+import { deleteSalesById, getAllSales } from "../slices/sales/SalesSlice";
 import { toast } from "react-toastify";
 
 function CustomerSalesTable() {
   const params = useParams();
   const dispatch = useDispatch();
   const customerID = params.id;
-  const { salesTable, isUpdate, isSuccess, isLoading } = useSelector(
+  const { salesTable, isUpdate, isSuccess, isLoading, message } = useSelector(
     (state) => state.sales
   );
   const [deleteID, setDeleteID] = React.useState(0);
@@ -19,7 +18,7 @@ function CustomerSalesTable() {
 
   React.useEffect(() => {
     if (isLoading || !isSuccess || isUpdate) {
-      dispatch(getAllSalesByIdSP(customerID));
+      dispatch(getAllSales(customerID));
       if (visible) {
         setVisible(false);
       }
