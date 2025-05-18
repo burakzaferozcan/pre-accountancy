@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
+import { Paginator } from "primereact/paginator";
 import {
   deleteCollectionsById,
   getAllCollections,
