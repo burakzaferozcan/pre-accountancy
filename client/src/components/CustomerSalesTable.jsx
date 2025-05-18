@@ -5,6 +5,7 @@ import { getAllSalesByIdSP } from "../../../controllers/SalesController";
 import { FaTrashAlt } from "react-icons/fa";
 import { Dialog } from "primereact/dialog";
 import { deleteSalesById } from "../slices/sales/SalesSlice";
+import { toast } from "react-toastify";
 
 function CustomerSalesTable() {
   const params = useParams();
@@ -29,6 +30,12 @@ function CustomerSalesTable() {
     setDeleteID(sale.id);
     setVisible(true);
   };
+
+  React.useEffect(() => {
+    if (message.isDeleted && message.message !== "") {
+      toast(message.message);
+    }
+  }, [message]);
 
   return (
     <div
