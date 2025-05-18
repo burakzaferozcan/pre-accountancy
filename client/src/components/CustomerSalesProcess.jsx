@@ -95,6 +95,13 @@ function CustomerSalesProcess() {
     let data = { customerID, description, stockID, amount, price };
     dispatch(addSales(data));
     dispatch(setBalanceRefresh());
+    setData((prev) => ({
+      ...prev,
+      description: "",
+      stockID: "",
+      amount: 0,
+      price: 0,
+    }));
   };
 
   return (
@@ -149,7 +156,12 @@ function CustomerSalesProcess() {
             <strong>Toplam : {amount && price && amount * price}</strong>
           </div>
         </div>
-        <button ref={saveRef} className="btn btn-primary" onClick={salesSave}>
+        <button
+          ref={saveRef}
+          disabled={!description || !price || !amount}
+          className="btn btn-primary"
+          onClick={salesSave}
+        >
           <FaSave /> Satış Kaydet
         </button>
       </div>
