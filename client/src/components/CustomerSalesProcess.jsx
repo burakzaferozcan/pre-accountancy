@@ -18,9 +18,9 @@ function CustomerSalesProcess() {
     price: 0,
   });
   const { stockID, description, amount, price } = data;
-  const priceRef = React.createRef();
-  const amountRef = React.createRef();
-  const saveRef = React.createRef();
+  const priceRef = React.useRef();
+  const amountRef = React.useRef();
+  const saveRef = React.useRef();
 
   React.useEffect(() => {
     if (!isSuccess || isLoading) {
