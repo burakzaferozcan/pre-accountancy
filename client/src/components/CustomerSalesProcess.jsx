@@ -4,6 +4,7 @@ import { getAllStock } from "../slices/stock/stockSlice";
 import { useParams } from "react-router-dom";
 import { FaSave } from "react-icons/fa";
 import { addSales } from "../slices/sales/SalesSlice";
+import { setBalanceRefresh } from "../slices/customer/CustomerSlice";
 function CustomerSalesProcess() {
   const dispatch = useDispatch();
   const params = useParams();
@@ -93,6 +94,7 @@ function CustomerSalesProcess() {
   const salesSave = async () => {
     let data = { customerID, description, stockID, amount, price };
     dispatch(addSales(data));
+    dispatch(setBalanceRefresh());
   };
 
   return (
