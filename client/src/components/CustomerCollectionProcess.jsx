@@ -24,6 +24,11 @@ function CustomerCollectionProcess() {
   const collectionSave = async () => {
     dispatch(addCollections(data));
     dispatch(setBalanceRefresh());
+    setData((prev) => ({
+      ...prev,
+      description: "",
+      price: 0,
+    }));
   };
 
   return (
@@ -54,7 +59,11 @@ function CustomerCollectionProcess() {
           className="form-control mt-1"
         />
       </div>
-      <button className="btn btn-primary" onClick={collectionSave}>
+      <button
+        className="btn btn-primary"
+        disabled={description === "" || price === 0}
+        onClick={collectionSave}
+      >
         <FaSave /> Kaydet
       </button>
     </div>
