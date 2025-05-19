@@ -98,14 +98,6 @@ function CompanyTable({ searchText }) {
                       >
                         Sil
                       </button>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        onClick={() =>
-                          navigate(`/company-purchase/print/${company.id}`)
-                        }
-                      >
-                        Yazdır
-                      </button>
                     </td>
                     <td>{company.fullName}</td>
                     <td>{company.phone}</td>

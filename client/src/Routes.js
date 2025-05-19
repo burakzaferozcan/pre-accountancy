@@ -6,7 +6,6 @@ import {
 import App from "./App";
 import HomeScreen from "./components/Screens/HomeScreen";
 import LoginScreen from "./components/Screens/LoginScreen";
-import RegisterScreen from "./components/Screens/RegisterScreen";
 import CustomerDefinitionScreen from "./components/Screens/CustomerDefinitionScreen";
 import EditCustomerScreen from "./components/Screens/EditCustomerScreen";
 import AddCustomerScreen from "./components/Screens/AddCustomerScreen";
@@ -18,10 +17,7 @@ import EditStockScreen from "./components/Screens/EditStockScreen";
 import AddStockScreen from "./components/Screens/AddStockScreen";
 import CustomerSalesScreen from "./components/Screens/CustomerSalesScreen";
 import CompanyPurchaseScreen from "./components/Screens/CompanyPurchaseScreen";
-import CustomerSalesPrintScreen from "./components/Screens/CustomerSalesPrintScreen";
-import CompanyPurchasePrintScreen from "./components/Screens/CompanyPurchasePrintScreen";
 import ConstantScreen from "./components/Screens/ConstantScreen";
-import ProfileScreen from "./components/Screens/ProfileScreen";
 
 export const appRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +25,6 @@ export const appRouter = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route index={true} element={<HomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
         <Route
           path="/customer-definition"
           element={<CustomerDefinitionScreen />}
@@ -53,19 +48,10 @@ export const appRouter = createBrowserRouter(
         <Route path="/stock-definition/add" element={<AddStockScreen />} />
         <Route path="/customer-sales/:id" element={<CustomerSalesScreen />} />
         <Route
-          path="/customer-sales/print/:id"
-          element={<CustomerSalesPrintScreen />}
-        />
-        <Route
           path="/company-purchase/:id"
           element={<CompanyPurchaseScreen />}
         />
-        <Route
-          path="/company-purchase/print/:id"
-          element={<CompanyPurchasePrintScreen />}
-        />
         <Route path="/constant" element={<ConstantScreen />} />
-        <Route path="/profile" element={<ProfileScreen />} />
       </Route>
     </Route>
   )
