@@ -69,12 +69,12 @@ export const addConstant = createAsyncThunk(
   }
 );
 
-export const stockSlice = createSlice({
+export const constantSlice = createSlice({
   name: "constant",
   initialState,
   reducers: {
     reset: (state) => {
-      state.stockTable = [];
+      state.constantTable = [];
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
@@ -91,7 +91,7 @@ export const stockSlice = createSlice({
         state.isLoading = false;
         state.isUpdate = false;
         state.isSuccess = true;
-        state.stockTable = action.payload;
+        state.constantTable = action.payload;
       })
       .addCase(getAllConstant.rejected, (state, action) => {
         state.isLoading = false;
@@ -114,6 +114,6 @@ export const stockSlice = createSlice({
   },
 });
 
-export const { reset } = stockSlice.actions;
+export const { reset } = constantSlice.actions;
 
-export default stockSlice.reducer;
+export default constantSlice.reducer;
