@@ -9,12 +9,12 @@ import { setBalanceRefresh } from "../slices/company/CompanySlice";
 function CompanyPurchaseProcess() {
   const dispatch = useDispatch();
   const params = useParams();
-  const customerID = params.id;
+  const companyID = params.id;
   const { stockTable, isLoading, isSuccess } = useSelector(
     (state) => state.stock
   );
   const [data, setData] = React.useState({
-    customerID: customerID,
+    companyID: companyID,
     stockID: "",
     description: "",
     amount: 0,
@@ -92,8 +92,8 @@ function CompanyPurchaseProcess() {
     }
   }, [activeIndex, stockTable]);
 
-  const salesSave = async () => {
-    let data = { customerID, description, stockID, amount, price };
+  const purchaseSave = async () => {
+    let data = { companyID, description, stockID, amount, price };
     dispatch(addPurchase(data));
     dispatch(setBalanceRefresh());
     setData((prev) => ({
@@ -161,9 +161,9 @@ function CompanyPurchaseProcess() {
           ref={saveRef}
           disabled={!description || !price || !amount}
           className="btn btn-primary"
-          onClick={salesSave}
+          onClick={purchaseSave}
         >
-          <FaSave /> Satış Kaydet
+          <FaSave /> Tahsilat Kaydet
         </button>
       </div>
       <div className="col-5" style={{ overflow: "auto", height: "200px" }}>
