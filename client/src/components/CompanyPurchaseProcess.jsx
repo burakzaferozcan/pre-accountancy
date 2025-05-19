@@ -163,7 +163,7 @@ function CompanyPurchaseProcess() {
           className="btn btn-primary"
           onClick={purchaseSave}
         >
-          <FaSave /> Tahsilat Kaydet
+          <FaSave /> Alım Kaydet
         </button>
       </div>
       <div className="col-5" style={{ overflow: "auto", height: "200px" }}>
