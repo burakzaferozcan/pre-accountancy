@@ -14,9 +14,8 @@ function CompanyPurchaseTable() {
   const params = useParams();
   const dispatch = useDispatch();
   const companyID = params.id;
-  const { salesTable, isUpdate, isSuccess, isLoading, message } = useSelector(
-    (state) => state.sales
-  );
+  const { purchaseTable, isUpdate, isSuccess, isLoading, message } =
+    useSelector((state) => state.purchase);
   const [deleteID, setDeleteID] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
   const [first, setFirst] = React.useState(0);
@@ -63,9 +62,9 @@ function CompanyPurchaseTable() {
             <th>Toplam</th>
           </tr>
         </thead>
-        {salesTable && salesTable.length > 0 ? (
+        {purchaseTable && purchaseTable.length > 0 ? (
           <tbody>
-            {salesTable.slice(first, first + rows).map((sale) => (
+            {purchaseTable.slice(first, first + rows).map((sale) => (
               <tr key={sale.id}>
                 <td>
                   <button
@@ -95,7 +94,7 @@ function CompanyPurchaseTable() {
       </table>
       <Paginator
         first={first}
-        totalRecords={salesTable && salesTable.length}
+        totalRecords={purchaseTable && purchaseTable.length}
         rows={rows}
         onPageChange={onPageChange}
       />

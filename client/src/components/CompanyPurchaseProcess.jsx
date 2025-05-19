@@ -10,8 +10,8 @@ function CompanyPurchaseProcess() {
   const dispatch = useDispatch();
   const params = useParams();
   const companyID = params.id;
-  const { stockTable, isLoading, isSuccess } = useSelector(
-    (state) => state.stock
+  const { purchaseTable, isLoading, isSuccess } = useSelector(
+    (state) => state.purchase
   );
   const [data, setData] = React.useState({
     companyID: companyID,
@@ -39,7 +39,7 @@ function CompanyPurchaseProcess() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    const matchIndex = stockTable.findIndex((item) =>
+    const matchIndex = purchaseTable.findIndex((item) =>
       item.description.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setActiveIndex(matchIndex);
@@ -50,10 +50,10 @@ function CompanyPurchaseProcess() {
   };
 
   const filterStockData = description
-    ? stockTable.filter((item) =>
+    ? purchaseTable.filter((item) =>
         item.description.toLowerCase().includes(description.toLowerCase())
       )
-    : stockTable;
+    : purchaseTable;
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -72,7 +72,7 @@ function CompanyPurchaseProcess() {
       }
     }
     if (e.target.name === "description") {
-      if (e.key === "ArrowDown" && activeIndex < stockTable.length - 1) {
+      if (e.key === "ArrowDown" && activeIndex < purchaseTable.length - 1) {
         setActiveIndex((prev) => prev + 1);
       } else if (e.key === "ArrowUp" && activeIndex > 0) {
         setActiveIndex((prev) => prev - 1);
@@ -81,8 +81,8 @@ function CompanyPurchaseProcess() {
   };
 
   React.useEffect(() => {
-    if (activeIndex !== -1 && stockTable[activeIndex]) {
-      setActiveItem(stockTable[activeIndex]);
+    if (activeIndex !== -1 && purchaseTable[activeIndex]) {
+      setActiveItem(purchaseTable[activeIndex]);
       setData((prev) => ({
         ...prev,
         stockID: activeItem.stockID,
@@ -90,7 +90,7 @@ function CompanyPurchaseProcess() {
         description: activeItem.description,
       }));
     }
-  }, [activeIndex, stockTable]);
+  }, [activeIndex, purchaseTable]);
 
   const purchaseSave = async () => {
     let data = { companyID, description, stockID, amount, price };
