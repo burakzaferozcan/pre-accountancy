@@ -10,11 +10,11 @@ const {
 } = require("../controllers/ProductPurchaseController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/purchase", authMiddleware, addProductPurchaseSP);
-router.get("/purchase/:id", authMiddleware, getAllProductPurchaseByIdSP);
+router.post("", authMiddleware, addProductPurchaseSP);
+router.get("/:id", authMiddleware, getAllProductPurchaseByIdSP);
 router.post("/payment", authMiddleware, addPaymentSP);
 router.get("/payment/:id", authMiddleware, getAllPaymentByIdSP);
-router.delete("/purchase/:id", authMiddleware, deleteProductPurchaseByIdSP);
+router.delete("/:id", authMiddleware, deleteProductPurchaseByIdSP);
 router.delete("/payment/:id", authMiddleware, deletePaymentByIdSP);
 
 module.exports = { productPurchaseRoutes: router };
