@@ -66,7 +66,7 @@ function EditCustomerScreen() {
 
   return (
     <div className="container mt-4">
-      <h3 className="text-center mb-2">Müşteri Ekleme</h3>
+      <h3 className="text-center mb-2">Müşteri Güncelleme</h3>
       <hr className="my-2" />
       <div className="d-flex flex-column gap-2">
         <div className="d-flex flex-row gap-1">
