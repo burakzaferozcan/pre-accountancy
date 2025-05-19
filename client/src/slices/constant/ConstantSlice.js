@@ -41,8 +41,8 @@ export const getAllConstant = createAsyncThunk(
   }
 );
 
-export const addConstant = createAsyncThunk(
-  "constant/addConstant",
+export const addUpdateConstant = createAsyncThunk(
+  "constant/addUpdateConstant",
   async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -99,14 +99,14 @@ export const constantSlice = createSlice({
         state.message = action.payload;
       })
 
-      .addCase(addConstant.pending, (state) => {
+      .addCase(addUpdateConstant.pending, (state) => {
         state.isUpdate = false;
       })
-      .addCase(addConstant.fulfilled, (state, action) => {
+      .addCase(addUpdateConstant.fulfilled, (state, action) => {
         state.isUpdate = true;
         state.message = action.payload;
       })
-      .addCase(addConstant.rejected, (state, action) => {
+      .addCase(addUpdateConstant.rejected, (state, action) => {
         state.isUpdate = false;
         state.isError = true;
         state.message = action.payload;
