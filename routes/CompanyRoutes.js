@@ -6,10 +6,12 @@ const {
   getByIdSP,
   updateByIdSP,
   deleteByIdSP,
+  getCompanyInfoById,
 } = require("../controllers/CompanyController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.get("/", authMiddleware, getAllSP).post("/", authMiddleware, addDataSP);
+router.get("/info/:id", authMiddleware, getCompanyInfoById);
 router
   .get("/:id", authMiddleware, getByIdSP)
   .put("/:id", authMiddleware, updateByIdSP)
