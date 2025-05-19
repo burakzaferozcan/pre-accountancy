@@ -7,6 +7,7 @@ import stockReducer from "./slices/stock/StockSlice";
 import companyReducer from "./slices/company/CompanySlice";
 import purchaseReducer from "./slices/purchase/PurchaseSlice";
 import paymentReducer from "./slices/payment/PaymentSlice";
+import constantReducer from "./slices/constant/ConstantSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     company: companyReducer,
     purchase: purchaseReducer,
     payment: paymentReducer,
+    constant: constantReducer,
   },
 });
